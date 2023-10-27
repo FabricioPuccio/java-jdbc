@@ -18,7 +18,7 @@ public class FabricanteServicio {
 
     public void ingresarFabricante() throws Exception {
         String nombre;
-        System.out.println("Para ingresar un Fabricante a la BD es necesario que digite el siguiente dato:\n" +
+        System.out.print("Para ingresar un Fabricante a la BD es necesario que digite el siguiente dato:\n" +
                 "Nombre fabricante: ");
         nombre = sc.next();
 
