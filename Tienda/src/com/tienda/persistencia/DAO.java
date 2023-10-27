@@ -20,7 +20,7 @@ public abstract class DAO {
     protected void conectarBase() throws ClassNotFoundException, SQLException {
         try {
             Class.forName(DRIVER);
-            String urlBaseDeDatos = "jbdc:mysql://localhost:3306/" + DATABASE + "?useSSL=false";
+            String urlBaseDeDatos = "jdbc:mysql://localhost:3306/" + DATABASE + "?useSSL=false";
             conexion = DriverManager.getConnection(urlBaseDeDatos, USER, PASSWORD);
         } catch (ClassNotFoundException | SQLException ex) {
             throw ex;
