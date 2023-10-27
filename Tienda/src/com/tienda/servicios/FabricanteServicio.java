@@ -81,4 +81,21 @@ public class FabricanteServicio {
         }
     }
 
+    public void mostrarFabricante() throws SQLException, ClassNotFoundException {
+        int codigo;
+        Fabricante fabricante = null;
+        System.out.print("Por favor digite el código del fabricante que desea ver.\n" +
+                "Código: ");
+        codigo = sc.nextInt();
+
+        try {
+            fabricante = fabriDao.findById(codigo);
+            System.out.println(fabricante.toString());
+        } catch (SQLException e) {
+            throw e;
+        } catch (ClassNotFoundException e) {
+            throw e;
+        }
+    }
+
 }
