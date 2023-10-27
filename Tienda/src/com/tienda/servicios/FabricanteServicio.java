@@ -4,6 +4,7 @@ import com.tienda.entidades.Fabricante;
 import com.tienda.persistencia.FabricanteDao;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 public class FabricanteServicio {
@@ -94,6 +95,20 @@ public class FabricanteServicio {
         } catch (SQLException e) {
             throw e;
         } catch (ClassNotFoundException e) {
+            throw e;
+        }
+    }
+
+    public void verTablaFabricante() throws SQLException, ClassNotFoundException {
+        try {
+            List<Fabricante> tablaFabri = fabriDao.listarFabricantes();
+            if (!tablaFabri.isEmpty() || tablaFabri != null) {
+                System.out.println("Tabla Fabricante");
+                tablaFabri.forEach(f -> System.out.println(f.toString()));
+            } else {
+                System.out.println("La tabla Fabricante está vacía.");
+            }
+        } catch (SQLException | ClassNotFoundException e) {
             throw e;
         }
     }
