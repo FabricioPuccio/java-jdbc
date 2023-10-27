@@ -3,6 +3,8 @@ package com.tienda.persistencia;
 import com.tienda.entidades.Fabricante;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class FabricanteDao extends DAO {
 
@@ -77,6 +79,26 @@ public final class FabricanteDao extends DAO {
 
         } catch (SQLException | ClassNotFoundException e) {
             throw e;
+        }
+    }
+
+    public List<Fabricante> listarFabricantes() throws SQLException, ClassNotFoundException {
+        String sql = "select * from fabricante;";
+        try {
+            super.consultarBase(sql);
+            Fabricante fabricante;
+            List<Fabricante> fabricantes = new ArrayList<>();
+            while (resultado.next()) {
+                fabricante = new Fabricante();
+                fabricante.setCodigo(resultado.getInt("codigo"));
+                fabricante.setNombre(resultado.getString("nombre"));
+                fabricantes.add(fabricante);
+            }
+            super.desconectarBase();
+            return fabricantes;
+        } catch (SQLException | ClassNotFoundException ex) {
+            super.desconectarBase();
+            throw ex;
         }
     }
 }
