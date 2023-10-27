@@ -58,8 +58,7 @@ public class FabricanteServicio {
             if (nombre.isEmpty() || nombre == null) {
                 throw new Exception("Es necesario indicar un nombre");
             }
-            // Hacer un método en la clase FabricanteDao para modificar un fabricante
-            //fabriDao.modificarFabricante(new Fabricante(codigo, nombre));
+            fabriDao.modificarFabricante(new Fabricante(codigo, nombre));
         } catch (SQLException | ClassNotFoundException e) {
             throw e;
         }
@@ -76,8 +75,7 @@ public class FabricanteServicio {
             if (fabricante == null) {
                 throw new Exception("No es encontró un fabricante con el código ingresado");
             }
-            // Hacer un método en la clase FabricanteDao para eliminar un fabricante
-            //fabriDao.eliminarFabricante(fabricante);
+            fabriDao.eliminarFabricante(fabricante);
         } catch (Exception ex) {
             throw ex;
         }
