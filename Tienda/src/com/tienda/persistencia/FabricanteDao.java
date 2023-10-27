@@ -13,12 +13,35 @@ public final class FabricanteDao extends DAO {
         }
 
         String sql = "INSERT INTO fabricante (nombre) VALUES('" + fabricante.getNombre() + "');";
-        //INSERT INTO fabricante VALUES(1, 'Asus');
         try {
             super.insertarModificarEliminar(sql);
         } catch (ClassNotFoundException e) {
             throw e;
         } catch (SQLException e) {
+            throw e;
+        }
+
+    }
+
+    public Fabricante findById(int codigo) throws SQLException, ClassNotFoundException {
+
+        String sql = "select * from fabricante where codigo = " + codigo + " ;";
+
+        try {
+            super.consultarBase(sql);
+
+            Fabricante fabricante = null;
+
+            while (resultado.next()) {
+                fabricante = new Fabricante();
+                fabricante.setCodigo(resultado.getInt("codigo"));
+                fabricante.setNombre(resultado.getString("nombre"));
+            }
+            
+            super.desconectarBase();
+            return fabricante;
+        } catch (SQLException | ClassNotFoundException e) {
+            super.desconectarBase();
             throw e;
         }
 
