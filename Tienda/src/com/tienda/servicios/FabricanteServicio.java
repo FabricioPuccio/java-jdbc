@@ -33,4 +33,54 @@ public class FabricanteServicio {
         }
 
     }
+
+    public void updateFabricante() throws Exception {
+        int codigo;
+        String nombre;
+        Fabricante fabricante = null;
+
+        System.out.print("\nPor favor ingrese el código del fabricante que desea actualizar.\n" +
+                "Código: ");
+        codigo = sc.nextInt();
+
+        try {
+            fabricante = fabriDao.findById(codigo);
+
+            if (fabricante == null) {
+                throw new Exception("No se encontró un fabricante con el código ingresado");
+            }
+            System.out.println("Los datos del fabricante que desea actualizar son los siguientes:\n");
+            fabricante.toString();
+
+            System.out.print("\nIngrese el nuevo nombre del fabricante: ");
+            nombre = sc.next();
+
+            if (nombre.isEmpty() || nombre == null) {
+                throw new Exception("Es necesario indicar un nombre");
+            }
+            // Hacer un método en la clase FabricanteDao para modificar un fabricante
+            //fabriDao.modificarFabricante(new Fabricante(codigo, nombre));
+        } catch (SQLException | ClassNotFoundException e) {
+            throw e;
+        }
+    }
+
+    public void deleteFabricante() throws Exception {
+        int codigo;
+        Fabricante fabricante;
+        System.out.print("¡Eliminar de la BD un fabricante!\n"
+                + "Ingrese el código del fabricante que sea eliminar: ");
+        codigo = sc.nextInt();
+        try {
+            fabricante = fabriDao.findById(codigo);
+            if (fabricante == null) {
+                throw new Exception("No es encontró un fabricante con el código ingresado");
+            }
+            // Hacer un método en la clase FabricanteDao para eliminar un fabricante
+            //fabriDao.eliminarFabricante(fabricante);
+        } catch (Exception ex) {
+            throw ex;
+        }
+    }
+
 }
