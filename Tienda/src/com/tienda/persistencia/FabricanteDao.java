@@ -37,7 +37,7 @@ public final class FabricanteDao extends DAO {
                 fabricante.setCodigo(resultado.getInt("codigo"));
                 fabricante.setNombre(resultado.getString("nombre"));
             }
-            
+
             super.desconectarBase();
             return fabricante;
         } catch (SQLException | ClassNotFoundException e) {
@@ -45,5 +45,38 @@ public final class FabricanteDao extends DAO {
             throw e;
         }
 
+    }
+
+    public void modificarFabricante(Fabricante fabricante) throws Exception {
+
+        if (fabricante == null) {
+            throw new Exception("Debe indicar el fabricante que desea modificar");
+        }
+
+        try {
+            String sql = "update fabricante set " +
+                    "nombre = '" + fabricante.getNombre() + "'" +
+                    "where codigo = " + fabricante.getCodigo() + ";";
+
+            super.insertarModificarEliminar(sql);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw e;
+        }
+    }
+
+    public void eliminarFabricante(Fabricante fabricante) throws Exception {
+
+        if (fabricante == null) {
+            throw new Exception("Debe indicar el fabricante que desea eliminar");
+        }
+
+        try {
+            String sql = "delete from fabricante where codigo = " + fabricante.getCodigo() + ";";
+
+            super.insertarModificarEliminar(sql);
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw e;
+        }
     }
 }
