@@ -37,6 +37,6 @@ public class Fabricante {
     public String toString() {
         return "\nFabricante " +
                 "codigo: " + codigo +
-                "| nombre: '" + nombre;
+                "| nombre: " + nombre;
     }
 }

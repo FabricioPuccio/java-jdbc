@@ -40,7 +40,7 @@ public class FabricanteServicio {
         String nombre;
         Fabricante fabricante = null;
 
-        System.out.print("\nPor favor ingrese el código del fabricante que desea actualizar.\n" +
+        System.out.print("Por favor ingrese el código del fabricante que desea actualizar.\n" +
                 "Código: ");
         codigo = sc.nextInt();
 
@@ -50,8 +50,8 @@ public class FabricanteServicio {
             if (fabricante == null) {
                 throw new Exception("No se encontró un fabricante con el código ingresado");
             }
-            System.out.println("Los datos del fabricante que desea actualizar son los siguientes:\n");
-            fabricante.toString();
+            System.out.println("Los datos del fabricante que desea actualizar son los siguientes:\n" + fabricante.toString());
+
 
             System.out.print("\nIngrese el nuevo nombre del fabricante: ");
             nombre = sc.next();
@@ -92,9 +92,7 @@ public class FabricanteServicio {
         try {
             fabricante = fabriDao.findById(codigo);
             System.out.println(fabricante.toString());
-        } catch (SQLException e) {
-            throw e;
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw e;
         }
     }
@@ -102,7 +100,7 @@ public class FabricanteServicio {
     public void verTablaFabricante() throws SQLException, ClassNotFoundException {
         try {
             List<Fabricante> tablaFabri = fabriDao.listarFabricantes();
-            if (!tablaFabri.isEmpty() || tablaFabri != null) {
+            if (!tablaFabri.isEmpty()) {
                 System.out.println("Tabla Fabricante");
                 tablaFabri.forEach(f -> System.out.println(f.toString()));
             } else {
