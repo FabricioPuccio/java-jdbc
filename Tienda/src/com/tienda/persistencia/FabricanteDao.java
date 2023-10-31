@@ -3,6 +3,8 @@ package com.tienda.persistencia;
 import com.tienda.entidades.Fabricante;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class FabricanteDao extends DAO {
 
@@ -13,7 +15,6 @@ public final class FabricanteDao extends DAO {
         }
 
         String sql = "INSERT INTO fabricante (nombre) VALUES('" + fabricante.getNombre() + "');";
-        //INSERT INTO fabricante VALUES(1, 'Asus');
         try {
             super.insertarModificarEliminar(sql);
         } catch (ClassNotFoundException e) {
@@ -22,5 +23,82 @@ public final class FabricanteDao extends DAO {
             throw e;
         }
 
+    }
+
+    public Fabricante findById(int codigo) throws SQLException, ClassNotFoundException {
+
+        String sql = "select * from fabricante where codigo = " + codigo + " ;";
+
+        try {
+            super.consultarBase(sql);
+
+            Fabricante fabricante = null;
+
+            while (resultado.next()) {
+                fabricante = new Fabricante();
+                fabricante.setCodigo(resultado.getInt("codigo"));
+                fabricante.setNombre(resultado.getString("nombre"));
+            }
+
+            super.desconectarBase();
+            return fabricante;
+        } catch (SQLException | ClassNotFoundException e) {
+            super.desconectarBase();
+            throw e;
+        }
+
+    }
+
+    public void modificarFabricante(Fabricante fabricante) throws Exception {
+
+        if (fabricante == null) {
+            throw new Exception("Debe indicar el fabricante que desea modificar");
+        }
+
+        try {
+            String sql = "update fabricante set " +
+                    "nombre = '" + fabricante.getNombre() + "'" +
+                    "where codigo = " + fabricante.getCodigo() + ";";
+
+            super.insertarModificarEliminar(sql);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw e;
+        }
+    }
+
+    public void eliminarFabricante(Fabricante fabricante) throws Exception {
+
+        if (fabricante == null) {
+            throw new Exception("Debe indicar el fabricante que desea eliminar");
+        }
+
+        try {
+            String sql = "delete from fabricante where codigo = " + fabricante.getCodigo() + ";";
+
+            super.insertarModificarEliminar(sql);
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw e;
+        }
+    }
+
+    public List<Fabricante> listarFabricantes() throws SQLException, ClassNotFoundException {
+        String sql = "select * from fabricante;";
+        try {
+            super.consultarBase(sql);
+            Fabricante fabricante;
+            List<Fabricante> fabricantes = new ArrayList<>();
+            while (resultado.next()) {
+                fabricante = new Fabricante();
+                fabricante.setCodigo(resultado.getInt("codigo"));
+                fabricante.setNombre(resultado.getString("nombre"));
+                fabricantes.add(fabricante);
+            }
+            super.desconectarBase();
+            return fabricantes;
+        } catch (SQLException | ClassNotFoundException ex) {
+            super.desconectarBase();
+            throw ex;
+        }
     }
 }
