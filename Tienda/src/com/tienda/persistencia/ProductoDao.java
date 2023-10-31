@@ -52,7 +52,7 @@ public final class ProductoDao extends DAO {
             throw new Exception("Es necesario indicar un producto para actualizarlo en la BD.");
         }
 
-        String sql = "update from producto set " +
+        String sql = "update producto set " +
                 "nombre = '" + producto.getNombre() + "', " +
                 "precio = " + producto.getPrecio() + ", " +
                 "codigo_fabricante = " + producto.getCodigoFabricante() + " " +
