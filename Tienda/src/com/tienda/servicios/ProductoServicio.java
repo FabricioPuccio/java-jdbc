@@ -4,6 +4,7 @@ import com.tienda.entidades.Producto;
 import com.tienda.persistencia.ProductoDao;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 public class ProductoServicio {
@@ -88,6 +89,35 @@ public class ProductoServicio {
         } catch (SQLException | ClassNotFoundException e) {
             throw e;
         }
+    }
+
+    public void eliminarProducto() throws Exception {
+        Producto producto = devolverProducto("Por favor digite el código del producto que desea eliminar.");
+        if (producto == null) {
+            throw new Exception("No existe un producto con el código ingresado en la BD.");
+        }
+
+        proDao.eliminarProducto(producto);
+
+        System.out.println("Producto eliminado correctamente.");
+    }
+
+    public void verTablaProducto() throws SQLException, ClassNotFoundException {
+
+        try {
+            List<Producto> productos = proDao.listarProductos();
+
+            if (!productos.isEmpty()) {
+                System.out.println("\nTabla Productos:");
+                productos.forEach(producto -> System.out.println(producto.toString()));
+            } else {
+                System.out.println("La tabla de productos está vacía.");
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw e;
+        }
+
     }
 
     private Producto devolverProducto(String cadena) throws SQLException, ClassNotFoundException {
